@@ -199,9 +199,8 @@
         if (_isUsingChinese) {
             [[cell textLabel] setText:countryDic[@"country_cn"]];
         }else{
-            [[cell textLabel] setText:countryDic[@"country_en"]];
+            [[cell textLabel] setText:[NSString stringWithFormat:@"%@ +%@", countryDic[@"country_en"], [[_PCCs valueForKey:[_keys objectAtIndex:[indexPath section]]][indexPath.row]valueForKey:@"phone_code"]]];
         }
-        [[cell imageView] setImage:[PCCPViewController imageForCountryCode:countryDic[@"country_code"]]];
         return cell;
     }
     return cell;;
