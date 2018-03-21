@@ -59,6 +59,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.title = @"Calling Codes";
+    
     [self.tableView setShowsHorizontalScrollIndicator:NO];
     [self.tableView setShowsVerticalScrollIndicator:NO];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellIdentifier"];
@@ -196,11 +198,9 @@
     if (_PCCs) {
         NSDictionary * countryDic = [_PCCs valueForKey:[_keys objectAtIndex:[indexPath section]]][indexPath.row];
         [[cell textLabel] setFont:[UIFont systemFontOfSize:15]];
-        if (_isUsingChinese) {
-            [[cell textLabel] setText:countryDic[@"country_cn"]];
-        }else{
-            [[cell textLabel] setText:[NSString stringWithFormat:@"%@ +%@", countryDic[@"country_en"], [[_PCCs valueForKey:[_keys objectAtIndex:[indexPath section]]][indexPath.row]valueForKey:@"phone_code"]]];
-        }
+        NSString *cellString = [NSString stringWithFormat:@"%@ +%@", countryDic[@"country_en"], [[_PCCs valueForKey:[_keys objectAtIndex:[indexPath section]]][indexPath.row]valueForKey:@"phone_code"]];
+        NSAttributedString *text = [[NSAttributedString alloc]initWithString:cellString attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15 weight:UIFontWeightBold]}];
+        [[cell textLabel]setAttributedText:text];
         return cell;
     }
     return cell;;
